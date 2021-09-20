@@ -1,0 +1,7 @@
+project: on_demand_feature_view_demo
+provider: local
+online_store:
+  path: data/online_store.db
+flags:
+  alpha_features: true
+  on_demand_transforms: true
