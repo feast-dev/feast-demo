@@ -25,8 +25,8 @@ driver_hourly_stats_view = FeatureView(
     tags={},
 )
 
-# Define a request data source which encodes features / information only available at request 
-# time (e.g. part of the user initiated HTTP request)
+# Define a request data source which encodes features / information only 
+# available at request time (e.g. part of the user initiated HTTP request)
 input_request = RequestDataSource(
     name="vals_to_add",
     schema={
@@ -35,8 +35,8 @@ input_request = RequestDataSource(
     }
 )
 
-# Define an on demand feature view which can generate new features based on existing feature 
-# views and RequestDataSource features
+# Define an on demand feature view which can generate new features based on 
+# existing feature views and RequestDataSource features
 @on_demand_feature_view(
    inputs={
        'driver_hourly_stats': driver_hourly_stats_view,
