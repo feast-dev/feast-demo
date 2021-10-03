@@ -16,8 +16,8 @@ driver_hourly_stats from 2021-09-09 16:51:08-07:00 to 2021-09-09 17:00:00-07:00:
 [00:00<00:00, 295.24it/s]
 
 $ feast serve
-This is an experimental feature. It's intended for early testing and feedback, and could
-change without warnings in future releases.
+# This is an experimental feature. It's intended for early testing and feedback, and could
+# change without warnings in future releases.
 INFO:     Started server process [8889]
 09/10/2021 10:42:11 AM INFO:Started server process [8889]
 INFO:     Waiting for application startup.
