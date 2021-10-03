@@ -25,7 +25,8 @@ driver_hourly_stats_view = FeatureView(
     tags={},
 )
 
-# Define a request data source which encodes features / information only available at request time (e.g. part of the user initiated HTTP request)
+# Define a request data source which encodes features / information only 
+# available at request time (e.g. part of the user initiated HTTP request)
 input_request = RequestDataSource(
     name="vals_to_add",
     schema={
@@ -34,8 +35,8 @@ input_request = RequestDataSource(
     }
 )
 
-# Define an on demand feature view which can generate new features based on existing feature views and
-# RequestDataSource features
+# Define an on demand feature view which can generate new features based on 
+# existing feature views and RequestDataSource features
 @on_demand_feature_view(
    inputs={
        'driver_hourly_stats': driver_hourly_stats_view,
@@ -46,8 +47,8 @@ input_request = RequestDataSource(
      Feature(name='conv_rate_plus_val2', dtype=ValueType.DOUBLE)
    ]
 )
-def transformed_conv_rate(features_df: pd.DataFrame) -> pd.DataFrame:
+def transformed_conv_rate(inputs: pd.DataFrame) -> pd.DataFrame:
     df = pd.DataFrame()
-    df['conv_rate_plus_val1'] = (features_df['conv_rate'] + features_df['val_to_add'])
-    df['conv_rate_plus_val2'] = (features_df['conv_rate'] + features_df['val_to_add_2'])
+    df['conv_rate_plus_val1'] = (inputs['conv_rate'] + inputs['val_to_add'])
+    df['conv_rate_plus_val2'] = (inputs['conv_rate'] + inputs['val_to_add_2'])
     return df
