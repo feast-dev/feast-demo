@@ -56,17 +56,20 @@ python get_features_demo.py
 Output:
 ```
 --- Historical features ---
-            event_timestamp  driver_id  val_to_add  val_to_add_2  conv_rate  acc_rate  avg_daily_trips  conv_rate_plus_val1  conv_rate_plus_val2
-0 2021-04-12 08:12:10+00:00       1002           2            20   0.775499  0.947109              890             2.775499            20.775499
-1 2021-04-12 10:59:42+00:00       1001           1            10   0.701558  0.195824              566             1.701558            10.701558
-2 2021-04-12 15:01:12+00:00       1004           4            40   0.891017  0.118256              154             4.891017            40.891017
-3 2021-04-12 16:40:26+00:00       1003           3            30   0.186658  0.245490              971             3.186658            30.186658
+            event_timestamp  driver_id  val_to_add  val_to_add_2  ...  acc_rate  avg_daily_trips  conv_rate_plus_val1  conv_rate_plus_val2
+0 2021-04-12 08:12:10+00:00       1002           2            20  ...  0.947109              890             2.775499            20.775499
+1 2021-04-12 10:59:42+00:00       1001           1            10  ...  0.195824              566             1.701558            10.701558
+2 2021-04-12 15:01:12+00:00       1004           4            40  ...  0.118256              154             4.891017            40.891017
+3 2021-04-12 16:40:26+00:00       1003           3            30  ...  0.245490              971             3.186658            30.186658
+
+[4 rows x 10 columns]
 
 --- Online features ---
+conv_rate  :  [0.8123572]
+acc_rate  :  [0.84087324]
 driver_id  :  [1001]
-conv_rate  :  [0.8123571872711182]
-acc_rate  :  [0.8408732414245605]
+conv_rate_plus_val1  :  [1000.8123572]
+conv_rate_plus_val2  :  [2000.8123572]
+driver_age  :  [25]
 avg_daily_trips  :  [714]
-conv_rate_plus_val1  :  [1000.8123571872711]
-conv_rate_plus_val2  :  [2000.8123571872711]
 ```
