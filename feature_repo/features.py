@@ -3,6 +3,7 @@ from google.protobuf.duration_pb2 import Duration
 from feast import Entity, Feature, FeatureView, FileSource, ValueType
 from feast.data_source import RequestDataSource
 from feast.on_demand_feature_view import on_demand_feature_view
+from feast.request_feature_view import RequestFeatureView
 import pandas as pd
 
 driver_hourly_stats = FileSource(
@@ -52,3 +53,15 @@ def transformed_conv_rate(inputs: pd.DataFrame) -> pd.DataFrame:
     df['conv_rate_plus_val1'] = (inputs['conv_rate'] + inputs['val_to_add'])
     df['conv_rate_plus_val2'] = (inputs['conv_rate'] + inputs['val_to_add_2'])
     return df
+
+
+# Define request feature view
+driver_age_request_fv = RequestFeatureView(
+    name="driver_age",
+    request_data_source=RequestDataSource(
+        name="driver_age",
+        schema={
+            "driver_age": ValueType.INT64,
+        }
+    )
+)
