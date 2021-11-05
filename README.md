@@ -1,9 +1,9 @@
-# On demand feature views demo
+# Feast demo
 
 ## Overview
 
-This tutorial demonstrates the use of on demand feature views in Feast. It extends the Feast default demo data to
-include on demand transformations.
+This tutorial demonstrates the use of on demand feature views and stream ingestion in Feast. It extends the Feast default demo data to
+include on demand transformations and pushing to the online store from stream events..
 
 ## Setup
 
@@ -65,11 +65,23 @@ Output:
 [4 rows x 10 columns]
 
 --- Online features ---
-conv_rate  :  [0.8123572]
 acc_rate  :  [0.84087324]
-driver_id  :  [1001]
+avg_daily_trips  :  [714]
 conv_rate_plus_val1  :  [1000.8123572]
 conv_rate_plus_val2  :  [2000.8123572]
 driver_age  :  [25]
-avg_daily_trips  :  [714]
+driver_id  :  [1001]
+
+--- Push new df ---
+   driver_id     event_timestamp             created  conv_rate  acc_rate  avg_daily_trips
+0       1001 2021-05-13 10:59:42 2021-05-13 10:59:42        1.0       1.0             1000
+
+--- Online features again with updated values---
+acc_rate  :  [1.0]
+avg_daily_trips  :  [1000]
+conv_rate_plus_val1  :  [1001.0]
+conv_rate_plus_val2  :  [2001.0]
+driver_age  :  [25]
+driver_id  :  [1001]
+
 ```
