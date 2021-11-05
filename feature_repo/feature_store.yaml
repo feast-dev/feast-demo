@@ -1,7 +1,11 @@
 project: on_demand_feature_view_demo
 provider: local
 online_store:
+  type: sqlite
   path: data/online_store.db
+offline_store:
+  type: file
 flags:
   alpha_features: true
   on_demand_transforms: true
+  direct_ingest_to_online_store: true
