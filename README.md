@@ -3,7 +3,9 @@
 ## Overview
 
 This tutorial demonstrates the use of on demand feature views and stream ingestion in Feast. It extends the Feast default demo data to
-include on demand transformations and pushing to the online store from stream events..
+include on demand transformations and pushing to the online store from stream events.
+
+It also includes miscellaneous code samples for embedding in tutorials / blog posts.
 
 ## Setup
 
