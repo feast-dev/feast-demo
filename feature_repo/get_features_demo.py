@@ -23,6 +23,7 @@ def run_demo():
     training_df = store.get_historical_features(
         entity_df=entity_df,
         features=[
+            "driver_hourly_stats:string_feature",
             "driver_hourly_stats:conv_rate",
             "driver_hourly_stats:acc_rate",
             "driver_hourly_stats:avg_daily_trips",
@@ -36,13 +37,14 @@ def run_demo():
     print("\n--- Online features ---")
     features = store.get_online_features(
         features=[
+            "driver_hourly_stats:string_feature",
             "driver_hourly_stats:acc_rate",
             "driver_hourly_stats:avg_daily_trips",
             "transformed_conv_rate:conv_rate_plus_val1",
             "transformed_conv_rate:conv_rate_plus_val2",
             "driver_age:driver_age"
         ],
-        entity_rows=[{"driver_id": 1001}, {"val_to_add": 1000}, {"val_to_add_2": 2000}, {"driver_age": 25}],
+        entity_rows=[{"driver_id": 1001, "val_to_add": 1000, "val_to_add_2": 2000, "driver_age": 25}],
     ).to_dict()
     for key, value in sorted(features.items()):
         print(key, ' : ', value)
@@ -61,6 +63,7 @@ def run_demo():
             "conv_rate": [1.0],
             "acc_rate": [1.0],
             "avg_daily_trips": [1000],
+            "string_feature": "test2"
         }
     )
     print(event_df)
@@ -75,7 +78,7 @@ def run_demo():
             "transformed_conv_rate:conv_rate_plus_val2",
             "driver_age:driver_age"
         ],
-        entity_rows=[{"driver_id": 1001}, {"val_to_add": 1000}, {"val_to_add_2": 2000}, {"driver_age": 25}],
+        entity_rows=[{"driver_id": 1001, "val_to_add": 1000, "val_to_add_2": 2000, "driver_age": 25}],
     ).to_dict()
     for key, value in sorted(features.items()):
         print(key, ' : ', value)
