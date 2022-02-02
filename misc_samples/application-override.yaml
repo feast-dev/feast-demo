@@ -1,0 +1,15 @@
+feature-server:
+    application-override.yaml:
+        enabled: true
+        feast:
+            active_store: online
+            stores:
+            - name: online
+              type: REDIS
+              config:
+                host: [INSERT REDIS SERVICE]
+                port: 6379
+                password: [INSERT REDIS PASSWORD]
+global:
+  registry:
+    path: [INSERT REGISTRY PATH (e.g. gs://..., file://...)]
