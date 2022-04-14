@@ -3,3 +3,4 @@ feature_repo/data/online_store.db
 *.bin
 **__pycache__**
 .idea/
+*.iml
