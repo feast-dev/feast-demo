@@ -27,10 +27,11 @@ feast apply
 
 Output:
 ```
-Registered entity driver_id
-Registered feature view driver_hourly_stats
-Registered on demand feature view transformed_conv_rate
-Deploying infrastructure for driver_hourly_stats
+Created entity driver
+Created feature view driver_hourly_stats
+Created on demand feature view transformed_conv_rate
+
+Created sqlite table feast_demo_driver_hourly_stats
 ```
 
 Next we load features into the online store using the `materialize-incremental` command. This command will load the
@@ -58,32 +59,30 @@ python get_features_demo.py
 Output:
 ```
 --- Historical features ---
-            event_timestamp  driver_id  val_to_add  val_to_add_2  ...  acc_rate  avg_daily_trips  conv_rate_plus_val1  conv_rate_plus_val2
-0 2021-04-12 08:12:10+00:00       1002           2            20  ...  0.947109              890             2.775499            20.775499
-1 2021-04-12 10:59:42+00:00       1001           1            10  ...  0.195824              566             1.701558            10.701558
-2 2021-04-12 15:01:12+00:00       1004           4            40  ...  0.118256              154             4.891017            40.891017
-3 2021-04-12 16:40:26+00:00       1003           3            30  ...  0.245490              971             3.186658            30.186658
-
-[4 rows x 10 columns]
+      driver_id           event_timestamp  val_to_add  val_to_add_2 string_feature  conv_rate  acc_rate  avg_daily_trips  conv_rate_plus_val1  conv_rate_plus_val2
+360        1001 2021-04-12 10:59:42+00:00           1            10           test   0.701558  0.195824              566             1.701558            10.701558
+721        1002 2021-04-12 08:12:10+00:00           2            20           test   0.775499  0.947109              890             2.775499            20.775499
+1082       1003 2021-04-12 16:40:26+00:00           3            30           test   0.186658  0.245490              971             3.186658            30.186658
+1445       1004 2021-04-12 15:01:12+00:00           4            40           test   0.891017  0.118256              154             4.891017            40.891017
 
 --- Online features ---
-acc_rate  :  [0.84087324]
+acc_rate  :  [0.8408732414245605]
 avg_daily_trips  :  [714]
-conv_rate_plus_val1  :  [1000.8123572]
-conv_rate_plus_val2  :  [2000.8123572]
-driver_age  :  [25]
+conv_rate_plus_val1  :  [1000.8123571872711]
+conv_rate_plus_val2  :  [2000.8123571872711]
 driver_id  :  [1001]
+string_feature  :  ['test']
 
---- Push new df ---
-   driver_id     event_timestamp             created  conv_rate  acc_rate  avg_daily_trips
-0       1001 2021-05-13 10:59:42 2021-05-13 10:59:42        1.0       1.0             1000
+--- Simulate a stream event ingestion of the hourly stats df ---
+   driver_id     event_timestamp             created  conv_rate  acc_rate  avg_daily_trips string_feature
+0       1001 2021-05-13 10:59:42 2021-05-13 10:59:42        1.0       1.0             1000          test2
 
 --- Online features again with updated values---
 acc_rate  :  [1.0]
 avg_daily_trips  :  [1000]
 conv_rate_plus_val1  :  [1001.0]
 conv_rate_plus_val2  :  [2001.0]
-driver_age  :  [25]
 driver_id  :  [1001]
+string_feature  :  ['test2']
 
 ```
