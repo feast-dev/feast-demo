@@ -5,6 +5,7 @@ from feast import (
     Entity,
     Feature,
     FeatureView,
+    FeatureService,
     Field,
     FileSource,
     PushSource,
@@ -84,3 +85,12 @@ def transformed_conv_rate(inputs: pd.DataFrame) -> pd.DataFrame:
     df["conv_rate_plus_val1"] = inputs["conv_rate"] + inputs["val_to_add"]
     df["conv_rate_plus_val2"] = inputs["conv_rate"] + inputs["val_to_add_2"]
     return df
+
+feature_service = FeatureService(
+    name="convrate_plus100",
+    features=[
+        driver_hourly_stats_view[["conv_rate", "avg_daily_trips"]],
+        transformed_conv_rate,
+    ],
+    owner="test3@gmail.com",
+)
