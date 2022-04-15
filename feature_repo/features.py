@@ -8,6 +8,8 @@ driver_hourly_stats = FileSource(
     path="data/driver_stats_with_string.parquet",
     timestamp_field="event_timestamp",
     created_timestamp_column="created",
+    description="A table describing the stats of a driver, such as the average daily number of trips.",
+    owner="test@gmail.com",
 )
 
 driver_stats_push_source = PushSource(
@@ -21,11 +23,14 @@ driver_stats_push_source = PushSource(
     batch_source=driver_hourly_stats,
     timestamp_field="event_timestamp",
 )
+
 driver = Entity(
     name="driver",
-    join_key="driver_id",
+    join_keys=["driver_id"],
     value_type=ValueType.INT64,
-    description="driver id")
+    description="driver id"
+)
+
 driver_hourly_stats_view = FeatureView(
     name="driver_hourly_stats",
     entities=["driver"],
@@ -37,9 +42,9 @@ driver_hourly_stats_view = FeatureView(
         Field(name="string_feature", dtype=String),
     ],
     online=True,
-    source=driver_hourly_stats,
-    stream_source=driver_stats_push_source,
-    tags={},
+    source=driver_stats_push_source,
+    tags={"production": "True"},
+    owner="test2@gmail.com",
 )
 
 # Define a request data source which encodes features / information only
@@ -51,7 +56,6 @@ input_request = RequestSource(
         Field(name="val_to_add_2", dtype=Int64),
     ]
 )
-
 
 # Define an on demand feature view which can generate new features based on
 # existing feature views and RequestSource features
