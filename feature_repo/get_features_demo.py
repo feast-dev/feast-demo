@@ -26,7 +26,10 @@ def fetch_java():
 
     print(
         stub.GetOnlineFeatures(
-            GetOnlineFeaturesRequest(features=feature_refs, entities=entity_rows,)
+            GetOnlineFeaturesRequest(
+                features=feature_refs,
+                entities=entity_rows,
+            )
         )
     )
 
@@ -85,8 +88,12 @@ def run_demo():
     event_df = pd.DataFrame.from_dict(
         {
             "driver_id": [1001],
-            "event_timestamp": [datetime(2021, 5, 13, 10, 59, 42),],
-            "created": [datetime(2021, 5, 13, 10, 59, 42),],
+            "event_timestamp": [
+                datetime(2021, 5, 13, 10, 59, 42),
+            ],
+            "created": [
+                datetime(2021, 5, 13, 10, 59, 42),
+            ],
             "conv_rate": [1.0],
             "acc_rate": [1.0],
             "avg_daily_trips": [1000],

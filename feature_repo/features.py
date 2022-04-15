@@ -1,8 +1,18 @@
+from datetime import timedelta
+
 import pandas as pd
-from feast import Entity, Feature, Field, FeatureView, FileSource, RequestSource, ValueType, PushSource
+from feast import (
+    Entity,
+    Feature,
+    FeatureView,
+    Field,
+    FileSource,
+    PushSource,
+    RequestSource,
+    ValueType,
+)
 from feast.on_demand_feature_view import on_demand_feature_view
 from feast.types import Float32, Float64, Int64, String
-from datetime import timedelta
 
 driver_hourly_stats = FileSource(
     path="data/driver_stats_with_string.parquet",
@@ -28,7 +38,7 @@ driver = Entity(
     name="driver",
     join_keys=["driver_id"],
     value_type=ValueType.INT64,
-    description="driver id"
+    description="driver id",
 )
 
 driver_hourly_stats_view = FeatureView(
@@ -54,7 +64,7 @@ input_request = RequestSource(
     schema=[
         Field(name="val_to_add", dtype=Int64),
         Field(name="val_to_add_2", dtype=Int64),
-    ]
+    ],
 )
 
 # Define an on demand feature view which can generate new features based on
