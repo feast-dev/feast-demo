@@ -24,15 +24,7 @@ driver_hourly_stats = FileSource(
 )
 
 driver_stats_push_source = PushSource(
-    name="driver_stats_push_source",
-    schema=[
-        Field(name="conv_rate", dtype=Float32),
-        Field(name="acc_rate", dtype=Float32),
-        Field(name="avg_daily_trips", dtype=Int64),
-        Field(name="string_feature", dtype=String),
-    ],
-    batch_source=driver_hourly_stats,
-    timestamp_field="event_timestamp",
+    name="driver_stats_push_source", batch_source=driver_hourly_stats,
 )
 
 driver = Entity(
@@ -45,7 +37,7 @@ driver = Entity(
 driver_hourly_stats_view = FeatureView(
     name="driver_hourly_stats",
     entities=["driver"],
-    ttl=timedelta(seconds=86400000),
+    ttl=timedelta(seconds=8640000000),
     schema=[
         Field(name="conv_rate", dtype=Float32),
         Field(name="acc_rate", dtype=Float32),
@@ -85,6 +77,7 @@ def transformed_conv_rate(inputs: pd.DataFrame) -> pd.DataFrame:
     df["conv_rate_plus_val1"] = inputs["conv_rate"] + inputs["val_to_add"]
     df["conv_rate_plus_val2"] = inputs["conv_rate"] + inputs["val_to_add_2"]
     return df
+
 
 feature_service = FeatureService(
     name="convrate_plus100",
