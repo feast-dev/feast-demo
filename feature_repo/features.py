@@ -23,6 +23,14 @@ driver_hourly_stats = FileSource(
     owner="test@gmail.com",
 )
 
+global_features = FileSource(
+    path="data/global_features.parquet",
+    timestamp_field="event_timestamp",
+    created_timestamp_column="created",
+    description="A table with global features around drivers.",
+    owner="test@gmail.com",
+)
+
 driver_stats_push_source = PushSource(
     name="driver_stats_push_source", batch_source=driver_hourly_stats,
 )
@@ -50,6 +58,19 @@ driver_hourly_stats_view = FeatureView(
     owner="test2@gmail.com",
 )
 
+global_features_view = FeatureView(
+    name="global_driver_features",
+    entities=[],
+    ttl=timedelta(seconds=8640000000),
+    schema=[
+        Field(name="total_trips_today_by_all_drivers", dtype=Float32),
+    ],
+    online=True,
+    source=global_features,
+    tags={"production": "True"},
+    owner="test2@gmail.com",
+)
+
 # Define a request data source which encodes features / information only
 # available at request time (e.g. part of the user initiated HTTP request)
 input_request = RequestSource(
@@ -60,13 +81,11 @@ input_request = RequestSource(
     ],
 )
 
+
 # Define an on demand feature view which can generate new features based on
 # existing feature views and RequestSource features
 @on_demand_feature_view(
-    sources=[
-        driver_hourly_stats_view,
-        input_request,
-    ],
+    sources=[driver_hourly_stats_view, input_request],
     schema=[
         Field(name="conv_rate_plus_val1", dtype=Float64),
         Field(name="conv_rate_plus_val2", dtype=Float64),
