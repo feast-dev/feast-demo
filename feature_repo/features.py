@@ -3,7 +3,6 @@ from datetime import timedelta
 import pandas as pd
 from feast import (
     Entity,
-    Feature,
     FeatureView,
     FeatureService,
     Field,
@@ -32,21 +31,22 @@ global_features = FileSource(
 )
 
 driver_stats_push_source = PushSource(
-    name="driver_stats_push_source", batch_source=driver_hourly_stats,
+    name="driver_stats_push_source",
+    batch_source=driver_hourly_stats,
 )
 
 driver = Entity(
     name="driver",
     join_keys=["driver_id"],
-    value_type=ValueType.INT64,
     description="driver id",
 )
 
 driver_hourly_stats_view = FeatureView(
     name="driver_hourly_stats",
-    entities=["driver"],
+    entities=[driver],
     ttl=timedelta(seconds=8640000000),
     schema=[
+        Field(name="driver_id", dtype=Int64),
         Field(name="conv_rate", dtype=Float32),
         Field(name="acc_rate", dtype=Float32),
         Field(name="avg_daily_trips", dtype=Int64),

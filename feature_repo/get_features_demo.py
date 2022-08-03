@@ -5,13 +5,10 @@ import pandas as pd
 from feast import FeatureStore
 from feast.protos.feast.serving.ServingService_pb2 import (
     FeatureList,
-    FeatureReferenceV2,
     GetOnlineFeaturesRequest,
-    GetOnlineFeaturesRequestV2,
 )
 from feast.protos.feast.serving.ServingService_pb2_grpc import ServingServiceStub
 from feast.protos.feast.types.Value_pb2 import RepeatedValue, Value
-from features import feature_service
 
 
 # Sample logic to fetch from a local gRPC java server deployed at 6566
@@ -126,7 +123,7 @@ def run_demo():
 
     print("\n--- Online features retrieved through a feature service---")
     features = store.get_online_features(
-        features=feature_service,
+        features=store.get_feature_service("convrate_plus100"),
         entity_rows=[
             {
                 "driver_id": 1001,
